@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
+
+* {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.5s ease-out forwards;
+}
+
+/* ボタンスタイル */
+.btn-primary {
+  background: #6FBF8E;
+  color: white;
+  border: none;
+  padding: 18px 48px;
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(111, 191, 142, 0.3);
+}
+
+.btn-primary:hover {
+  background: #5DAD7C;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(111, 191, 142, 0.4);
+}
+
+.btn-secondary {
+  background: white;
+  color: #6FBF8E;
+  border: 2px solid #6FBF8E;
+  padding: 16px 32px;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: #F2F7F3;
+  box-shadow: 0 4px 16px rgba(111, 191, 142, 0.2);
+}
+
+/* カードスタイル */
+.weather-card {
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  border: 2px solid #E8F5ED;
+}
+
+.menu-card {
+  background: #F2F7F3;
+  border: 2px solid #E8F5ED;
+  border-radius: 20px;
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+.menu-card:hover {
+  box-shadow: 0 4px 16px rgba(111, 191, 142, 0.2);
+  transform: translateY(-2px);
+}
+
+/* イラスト装飾 */
+.illustration-container {
+  position: relative;
+}
+
+.leaf {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #6FBF8E 0%, #9DD6B3 100%);
+  border-radius: 0 100% 100% 0;
+  transform: rotate(45deg);
+  opacity: 0.3;
+}
+
+.leaf-1 {
+  top: 20%;
+  left: 10%;
+  animation: float 4s ease-in-out infinite;
+}
+
+.leaf-2 {
+  bottom: 30%;
+  right: 15%;
+  animation: float 5s ease-in-out infinite 1s;
+}
