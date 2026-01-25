@@ -10,6 +10,7 @@ export interface TrainingMenu {
   sets: number;
   unit: '秒' | '回' | '分';
   category?: string;
+  image?: string;
 }
 
 /**
