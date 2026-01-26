@@ -15,18 +15,25 @@ const Button: React.FC<ButtonProps> = ({
   children,
   icon,
   className = '',
+  style,
   ...props
 }) => {
   const baseClasses = variant === 'primary' ? 'btn-primary' : 'btn-secondary';
-  const iconClasses = icon ? 'flex items-center gap-2 justify-center' : '';
 
   return (
     <button
-      className={`${baseClasses} ${iconClasses} ${className}`}
+      className={`${baseClasses} ${className}`}
+      style={{
+        ...style,
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: icon ? '8px' : '0'
+      }}
       {...props}
     >
-      {icon && icon}
-      {children}
+      {icon && <span style={{ display: 'flex', alignItems: 'center', lineHeight: 1 }}>{icon}</span>}
+      <span style={{ lineHeight: 1 }}>{children}</span>
     </button>
   );
 };
