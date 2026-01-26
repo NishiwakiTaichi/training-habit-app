@@ -8,6 +8,7 @@ interface MenuCardProps {
   onEdit?: () => void;
   onDelete?: () => void;
   showActions?: boolean;
+  dragHandleProps?: any;
 }
 
 /**
@@ -18,61 +19,137 @@ const MenuCard: React.FC<MenuCardProps> = ({
   day,
   onEdit,
   onDelete,
-  showActions = true
+  showActions = true,
+  dragHandleProps
 }) => {
   return (
     <div
-      className="flex items-center gap-4 p-6 rounded-2xl mb-3 transition-all hover:shadow-md"
-      style={{ background: '#F2F7F3', border: '2px solid #E8F5ED' }}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '16px',
+        padding: '16px 24px',
+        borderRadius: '16px',
+        marginBottom: '12px',
+        background: '#F2F7F3',
+        border: '2px solid #E8F5ED',
+        transition: 'all 0.3s ease'
+      }}
     >
       {showActions && (
-        <button className="cursor-grab p-2 hover:bg-white rounded-lg transition-colors">
+        <div
+          {...dragHandleProps}
+          style={{
+            cursor: 'grab',
+            padding: '8px',
+            background: 'transparent',
+            border: 'none',
+            display: 'flex',
+            alignItems: 'center'
+          }}
+        >
           <GripVertical size={24} style={{ color: '#9DD6B3' }} />
-        </button>
+        </div>
       )}
 
-      <div
-        className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl"
-        style={{ background: '#E8F5ED' }}
-      >
-        {menu.emoji}
-      </div>
+      {/* 画像 */}
+      {menu.image && (
+        <img
+          src={menu.image}
+          alt={menu.name}
+          style={{
+            width: '64px',
+            height: '64px',
+            objectFit: 'cover',
+            borderRadius: '12px',
+            border: '2px solid #E8F5ED'
+          }}
+        />
+      )}
 
-      <div className="flex-1">
-        <div className="font-bold text-xl mb-1" style={{ color: '#2D5F3F' }}>
+      {/* メニュー情報 */}
+      <div style={{ flex: 1 }}>
+        <div
+          style={{
+            fontWeight: 700,
+            fontSize: '18px',
+            color: '#2D5F3F',
+            marginBottom: '4px'
+          }}
+        >
           {menu.name}
         </div>
-        <div className="flex gap-4 text-sm" style={{ color: '#6FBF8E' }}>
+        <div style={{ display: 'flex', gap: '12px', fontSize: '14px', color: '#6FBF8E' }}>
           {day && (
-            <span className="px-3 py-1 rounded-full bg-white font-medium">
+            <span
+              style={{
+                padding: '4px 12px',
+                borderRadius: '20px',
+                background: 'white',
+                fontWeight: 500
+              }}
+            >
               {day}
             </span>
           )}
-          <span className="px-3 py-1 rounded-full bg-white font-medium">
+          <span
+            style={{
+              padding: '4px 12px',
+              borderRadius: '20px',
+              background: 'white',
+              fontWeight: 500
+            }}
+          >
             {menu.reps}{menu.unit}
           </span>
-          <span className="px-3 py-1 rounded-full bg-white font-medium">
+          <span
+            style={{
+              padding: '4px 12px',
+              borderRadius: '20px',
+              background: 'white',
+              fontWeight: 500
+            }}
+          >
             {menu.sets}セット
           </span>
         </div>
       </div>
 
+      {/* アクションボタン */}
       {showActions && (
-        <>
+        <div style={{ display: 'flex', gap: '8px' }}>
           <button
             onClick={onEdit}
-            className="p-3 hover:bg-white rounded-lg transition-colors"
+            style={{
+              padding: '12px',
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              borderRadius: '8px',
+              transition: 'background 0.3s',
+              display: 'flex',
+              alignItems: 'center'
+            }}
           >
             <Edit size={24} style={{ color: '#6FBF8E' }} />
           </button>
 
           <button
             onClick={onDelete}
-            className="p-3 hover:bg-red-50 rounded-lg transition-colors"
+            style={{
+              padding: '12px',
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              borderRadius: '8px',
+              transition: 'background 0.3s',
+              display: 'flex',
+              alignItems: 'center'
+            }}
           >
             <Trash2 size={24} style={{ color: '#E57373' }} />
           </button>
-        </>
+        </div>
       )}
     </div>
   );

@@ -13,48 +13,85 @@ interface CompleteScreenProps {
 const CompleteScreen: React.FC<CompleteScreenProps> = ({ onBack, onCalendar }) => {
   return (
     <div
-      className="min-h-screen flex items-center justify-center p-8"
-      style={{ background: '#F2F7F3' }}
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '32px',
+        background: '#F2F7F3'
+      }}
     >
       <div
-        className="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-16 text-center animate-scaleIn"
-        style={{ border: '3px solid #6FBF8E' }}
+        style={{
+          width: '100%',
+          maxWidth: '700px',
+          background: '#FEFEFE',
+          borderRadius: '24px',
+          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
+          padding: '64px',
+          textAlign: 'center'
+        }}
       >
         {/* チェックマークアイコン */}
-        <div className="mb-8 flex justify-center">
-          <div className="w-32 h-32 rounded-full bg-gradient-to-br from-green-100 to-green-50 flex items-center justify-center animate-pulse">
-            <Check size={64} style={{ color: '#6FBF8E' }} strokeWidth={3} />
+        <div style={{ marginBottom: '32px', display: 'flex', justifyContent: 'center' }}>
+          <div
+            style={{
+              width: '128px',
+              height: '128px',
+              borderRadius: '50%',
+              background: '#6FBF8E',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
+            <Check size={64} style={{ color: 'white' }} strokeWidth={4} />
           </div>
         </div>
 
         {/* メッセージ */}
         <h2
-          className="text-5xl font-black mb-6"
-          style={{ color: '#6FBF8E' }}
+          style={{
+            fontSize: '48px',
+            fontWeight: 900,
+            color: '#6FBF8E',
+            marginBottom: '24px',
+            textAlign: 'center'
+          }}
         >
           Complete!!
         </h2>
 
         <p
-          className="text-2xl font-bold mb-4"
-          style={{ color: '#2D5F3F' }}
+          style={{
+            fontSize: '20px',
+            fontWeight: 700,
+            color: '#2D5F3F',
+            marginBottom: '16px',
+            textAlign: 'center'
+          }}
         >
           お疲れ様でした！
         </p>
         <p
-          className="text-xl mb-12"
-          style={{ color: '#5DAD7C' }}
+          style={{
+            fontSize: '18px',
+            color: '#5DAD7C',
+            marginBottom: '48px',
+            textAlign: 'center'
+          }}
         >
           今日のトレーニングメニューはこれで完了しました！
         </p>
 
         {/* ボタン */}
-        <div className="flex gap-4 justify-center">
+        <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
           <Button
             variant="secondary"
             onClick={onBack}
-            icon={<ChevronLeft size={24} />}
-            className="px-8 py-4 text-lg"
+            icon={<ChevronLeft size={16} />}
+            style={{ padding: '10px 24px', fontSize: '14px' }}
           >
             戻る
           </Button>
@@ -62,8 +99,8 @@ const CompleteScreen: React.FC<CompleteScreenProps> = ({ onBack, onCalendar }) =
           <Button
             variant="primary"
             onClick={onCalendar}
-            icon={<Calendar size={24} />}
-            className="px-8 py-4 text-lg"
+            icon={<Calendar size={16} />}
+            style={{ padding: '10px 24px', fontSize: '14px' }}
           >
             カレンダー
           </Button>

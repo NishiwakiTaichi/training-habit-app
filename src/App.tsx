@@ -5,10 +5,11 @@ import TrainingScreen from './screens/TrainingScreen';
 import CompleteScreen from './screens/CompleteScreen';
 import CalendarScreen from './screens/CalendarScreen';
 import MenuManagementScreen from './screens/MenuManagementScreen';
+import MenuDetailScreen from './screens/MenuDetailScreen';
 import { getDayOfWeek } from './utils/dateUtils';
 import { getRandomWeather } from './utils/weatherUtils';
 import { initialTrainingMenus } from './data/trainingData';
-import { ScreenType, WeeklyMenus, WeatherInfo, DayOfWeek } from './types';
+import { ScreenType, WeeklyMenus, WeatherInfo, DayOfWeek, TrainingMenu } from './types';
 
 /**
  * メインアプリケーションコンポーネント
@@ -16,6 +17,7 @@ import { ScreenType, WeeklyMenus, WeatherInfo, DayOfWeek } from './types';
 function App(): JSX.Element {
   // 画面管理
   const [currentScreen, setCurrentScreen] = useState<ScreenType>('start');
+  const [showMenuDetail, setShowMenuDetail] = useState<boolean>(false);
 
   // トレーニング関連の状態
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState<number>(0);
@@ -24,6 +26,11 @@ function App(): JSX.Element {
 
   // カレンダー関連の状態
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+
+  // メニュー編集関連の状態
+  const [editingMenu, setEditingMenu] = useState<TrainingMenu | undefined>(undefined);
+  const [editingDay, setEditingDay] = useState<DayOfWeek | undefined>(undefined);
+  const [editingIndex, setEditingIndex] = useState<number | undefined>(undefined);
 
   // 天気情報
   const [weather, setWeather] = useState<WeatherInfo | null>(null);
@@ -121,17 +128,23 @@ function App(): JSX.Element {
   };
 
   /**
-   * メニュー追加（仮実装）
+   * メニュー追加
    */
   const handleAddMenu = (): void => {
-    alert('メニュー追加機能は開発中です');
+    setEditingMenu(undefined);
+    setEditingDay(getDayOfWeek(new Date()));
+    setEditingIndex(undefined);
+    setShowMenuDetail(true);
   };
 
   /**
-   * メニュー編集（仮実装）
+   * メニュー編集
    */
   const handleEditMenu = (day: DayOfWeek, index: number): void => {
-    alert(`${day}曜日の${index + 1}番目のメニューを編集`);
+    setEditingMenu(trainingMenus[day][index]);
+    setEditingDay(day);
+    setEditingIndex(index);
+    setShowMenuDetail(true);
   };
 
   /**
@@ -147,11 +160,86 @@ function App(): JSX.Element {
   };
 
   /**
+   * メニュー複製
+   */
+  const handleCopyMenus = (sourceDay: DayOfWeek, targetDays: DayOfWeek[]): void => {
+    const sourceMenus = trainingMenus[sourceDay];
+    setTrainingMenus(prev => {
+      const newMenus = { ...prev };
+      targetDays.forEach(targetDay => {
+        newMenus[targetDay] = [...newMenus[targetDay], ...sourceMenus];
+      });
+      return newMenus;
+    });
+  };
+
+  /**
+   * メニューの並び替え
+   */
+  const handleReorderMenus = (day: DayOfWeek, sourceIndex: number, destinationIndex: number): void => {
+    setTrainingMenus(prev => {
+      const dayMenus = [...prev[day]];
+      const [removed] = dayMenus.splice(sourceIndex, 1);
+      dayMenus.splice(destinationIndex, 0, removed);
+
+      return {
+        ...prev,
+        [day]: dayMenus
+      };
+    });
+  };
+
+  /**
+   * メニュー保存
+   */
+  const handleSaveMenu = (menu: TrainingMenu, selectedDays: DayOfWeek[]): void => {
+    if (editingIndex !== undefined && editingDay) {
+      // 編集モード：元の曜日から削除して、新しい曜日に追加
+      setTrainingMenus(prev => {
+        const newMenus = { ...prev };
+
+        // 元の曜日から削除
+        newMenus[editingDay] = newMenus[editingDay].filter((_, idx) => idx !== editingIndex);
+
+        // 選択された全ての曜日に追加
+        selectedDays.forEach(day => {
+          newMenus[day] = [...newMenus[day], menu];
+        });
+
+        return newMenus;
+      });
+    } else {
+      // 新規追加モード：選択された全ての曜日に追加
+      setTrainingMenus(prev => {
+        const newMenus = { ...prev };
+        selectedDays.forEach(day => {
+          newMenus[day] = [...newMenus[day], menu];
+        });
+        return newMenus;
+      });
+    }
+
+    setShowMenuDetail(false);
+    setEditingMenu(undefined);
+    setEditingDay(undefined);
+    setEditingIndex(undefined);
+  };
+
+  /**
+   * メニュー詳細画面から戻る
+   */
+  const handleBackFromMenuDetail = (): void => {
+    setShowMenuDetail(false);
+    setEditingMenu(undefined);
+    setEditingDay(undefined);
+    setEditingIndex(undefined);
+  };
+
+  /**
    * 地域変更時（天気情報更新）
    */
   const handleLocationChange = (location: string): void => {
     console.log('Location changed to:', location);
-    // TODO: 実際のAPIで天気情報を取得
     setWeather(getRandomWeather());
   };
 
@@ -159,11 +247,29 @@ function App(): JSX.Element {
 
   if (!weather) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: '#F2F7F3' }}>
-        <div className="text-2xl font-bold" style={{ color: '#6FBF8E' }}>
+      <div style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: '#F2F7F3'
+      }}>
+        <div style={{ fontSize: '24px', fontWeight: 700, color: '#6FBF8E' }}>
           読み込み中...
         </div>
       </div>
+    );
+  }
+
+  // メニュー詳細画面
+  if (showMenuDetail) {
+    return (
+      <MenuDetailScreen
+        menu={editingMenu}
+        selectedDay={editingDay}
+        onSave={handleSaveMenu}
+        onBack={handleBackFromMenuDetail}
+      />
     );
   }
 
@@ -223,6 +329,8 @@ function App(): JSX.Element {
         onAdd={handleAddMenu}
         onEdit={handleEditMenu}
         onDelete={handleDeleteMenu}
+        onCopy={handleCopyMenus}
+        onReorder={handleReorderMenus}
         onBack={() => setCurrentScreen('calendar')}
       />
     );

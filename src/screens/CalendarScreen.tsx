@@ -45,45 +45,77 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({
   };
 
   return (
-    <div className="min-h-screen p-8" style={{ background: '#F2F7F3' }}>
-      <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-3 gap-8">
+    <div
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '32px',
+        background: '#F2F7F3'
+      }}
+    >
+      <div style={{ width: '100%', maxWidth: '1400px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '32px' }}>
           {/* カレンダー部分 */}
           <div
-            className="lg:col-span-2 bg-white rounded-3xl shadow-2xl p-8 animate-fadeInUp"
-            style={{ border: '3px solid #6FBF8E' }}
+            style={{
+              background: '#FEFEFE',
+              borderRadius: '24px',
+              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
+              padding: '48px'
+            }}
           >
             {/* 月の表示とナビゲーション */}
-            <div className="flex items-center justify-between mb-8">
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px' }}>
               <button
                 onClick={handlePreviousMonth}
-                className="p-3 rounded-full hover:bg-green-50 transition-colors"
-                style={{ color: '#6FBF8E' }}
+                style={{
+                  padding: '12px',
+                  borderRadius: '50%',
+                  background: 'transparent',
+                  border: 'none',
+                  color: '#6FBF8E',
+                  cursor: 'pointer',
+                  transition: 'background 0.3s'
+                }}
               >
                 <ChevronLeft size={28} />
               </button>
 
-              <h3 className="text-3xl font-black" style={{ color: '#2D5F3F' }}>
+              <h3 style={{ fontSize: '28px', fontWeight: 900, color: '#2D5F3F' }}>
                 {selectedDate.getFullYear()}年 {selectedDate.getMonth() + 1}月
               </h3>
 
               <button
                 onClick={handleNextMonth}
-                className="p-3 rounded-full hover:bg-green-50 transition-colors"
-                style={{ color: '#6FBF8E' }}
+                style={{
+                  padding: '12px',
+                  borderRadius: '50%',
+                  background: 'transparent',
+                  border: 'none',
+                  color: '#6FBF8E',
+                  cursor: 'pointer',
+                  transition: 'background 0.3s'
+                }}
               >
                 <ChevronRight size={28} />
               </button>
             </div>
 
             {/* カレンダーグリッド */}
-            <div className="grid grid-cols-7 gap-3">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '12px' }}>
               {/* 曜日ヘッダー */}
               {['日', '月', '火', '水', '木', '金', '土'].map(day => (
                 <div
                   key={day}
-                  className="text-center font-bold text-lg py-3"
-                  style={{ color: '#5DAD7C' }}
+                  style={{
+                    textAlign: 'center',
+                    fontWeight: 700,
+                    fontSize: '16px',
+                    padding: '12px',
+                    color: '#5DAD7C'
+                  }}
                 >
                   {day}
                 </div>
@@ -92,7 +124,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({
               {/* 日付 */}
               {calendarDays.map((day, idx) => {
                 if (!day) {
-                  return <div key={`empty-${idx}`} className="aspect-square"></div>;
+                  return <div key={`empty-${idx}`} style={{ aspectRatio: '1' }}></div>;
                 }
 
                 const date = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), day);
@@ -104,13 +136,17 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({
                   <button
                     key={day}
                     onClick={() => onDateSelect(date)}
-                    className={`aspect-square rounded-2xl font-bold text-lg transition-all ${isCompleted ? 'text-white shadow-lg' : 'hover:bg-green-50'
-                      } ${isSelected ? 'ring-4' : ''} ${isTodayDate ? 'border-4' : ''}`}
                     style={{
+                      aspectRatio: '1',
+                      borderRadius: '16px',
+                      fontWeight: 700,
+                      fontSize: '18px',
                       background: isCompleted ? '#6FBF8E' : isSelected ? '#E8F5ED' : 'transparent',
-                      outline: isSelected ? '4px solid #6FBF8E' : 'none',  // ← ringColorをoutlineに変更
-                      borderColor: isTodayDate ? '#6FBF8E' : 'transparent',
-                      color: isCompleted ? 'white' : '#2D5F3F'
+                      outline: isSelected ? '4px solid #6FBF8E' : 'none',
+                      border: isTodayDate ? '4px solid #6FBF8E' : 'none',
+                      color: isCompleted ? 'white' : '#2D5F3F',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s'
                     }}
                   >
                     {day}
@@ -120,80 +156,108 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({
             </div>
 
             {/* 凡例 */}
-            <div className="flex gap-6 mt-8 justify-center">
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-lg" style={{ background: '#6FBF8E' }}></div>
-                <span className="font-medium" style={{ color: '#2D5F3F' }}>達成</span>
+            <div style={{ display: 'flex', gap: '24px', marginTop: '32px', justifyContent: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{ width: '24px', height: '24px', borderRadius: '8px', background: '#6FBF8E' }}></div>
+                <span style={{ fontWeight: 500, color: '#2D5F3F' }}>達成</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <div
-                  className="w-6 h-6 rounded-lg border-3"
-                  style={{ borderColor: '#E8F5ED', background: '#F9FCFA' }}
+                  style={{
+                    width: '24px',
+                    height: '24px',
+                    borderRadius: '8px',
+                    border: '3px solid #E8F5ED',
+                    background: '#F9FCFA'
+                  }}
                 ></div>
-                <span className="font-medium" style={{ color: '#2D5F3F' }}>未達成</span>
+                <span style={{ fontWeight: 500, color: '#2D5F3F' }}>未達成</span>
               </div>
             </div>
           </div>
 
           {/* 選択した日のメニュー表示 */}
           <div
-            className="bg-white rounded-3xl shadow-2xl p-8 animate-fadeInUp"
-            style={{ border: '3px solid #6FBF8E', animationDelay: '0.1s' }}
+            style={{
+              background: '#FEFEFE',
+              borderRadius: '24px',
+              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
+              padding: '48px',
+              display: 'flex',
+              flexDirection: 'column'
+            }}
           >
             <h3
-              className="text-2xl font-black mb-6"
-              style={{ color: '#2D5F3F' }}
+              style={{
+                fontSize: '24px',
+                fontWeight: 900,
+                color: '#2D5F3F',
+                marginBottom: '24px'
+              }}
             >
               {selectedDate.getMonth() + 1}月{selectedDate.getDate()}日のメニュー
             </h3>
 
             {/* メニューリスト */}
-            <div className="space-y-4 mb-6">
+            <div style={{ flex: 1, marginBottom: '24px' }}>
               {selectedDayMenus.length > 0 ? (
-                selectedDayMenus.map((menu, idx) => (
-                  <div
-                    key={idx}
-                    className="p-4 rounded-2xl"
-                    style={{ background: '#F2F7F3' }}
-                  >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  {selectedDayMenus.map((menu, idx) => (
                     <div
-                      className="font-bold text-lg mb-1"
-                      style={{ color: '#2D5F3F' }}
+                      key={idx}
+                      style={{
+                        padding: '16px',
+                        borderRadius: '16px',
+                        background: '#F2F7F3'
+                      }}
                     >
-                      {menu.name}
+                      <div
+                        style={{
+                          fontWeight: 700,
+                          fontSize: '18px',
+                          color: '#2D5F3F',
+                          marginBottom: '4px'
+                        }}
+                      >
+                        {menu.name}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: '14px',
+                          color: '#6FBF8E'
+                        }}
+                      >
+                        {menu.reps}{menu.unit} × {menu.sets}セット
+                      </div>
                     </div>
-                    <div
-                      className="text-sm"
-                      style={{ color: '#6FBF8E' }}
-                    >
-                      {menu.reps}{menu.unit} × {menu.sets}セット
-                    </div>
-                  </div>
-                ))
+                  ))}
+                </div>
               ) : (
-                <div className="text-center py-8 text-gray-400">
+                <div style={{ textAlign: 'center', padding: '32px', color: '#999' }}>
                   この日はメニューがありません
                 </div>
               )}
             </div>
 
             {/* ボタン */}
-            <Button
-              variant="primary"
-              onClick={onEdit}
-              className="w-full mb-4"
-            >
-              編集
-            </Button>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <Button
+                variant="primary"
+                onClick={onEdit}
+                style={{ width: '100%', padding: '12px 24px', fontSize: '16px' }}
+              >
+                編集
+              </Button>
 
-            <Button
-              variant="secondary"
-              onClick={onBack}
-              icon={<ChevronLeft size={24} />}
-              className="w-full"
-            >
-              戻る
-            </Button>
+              <Button
+                variant="secondary"
+                onClick={onBack}
+                icon={<ChevronLeft size={18} />}
+                style={{ width: '100%', padding: '12px 24px', fontSize: '16px' }}
+              >
+                戻る
+              </Button>
+            </div>
           </div>
         </div>
       </div>
