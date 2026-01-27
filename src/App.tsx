@@ -4,6 +4,7 @@ import StartScreen from './screens/StartScreen';
 import TrainingScreen from './screens/TrainingScreen';
 import CompleteScreen from './screens/CompleteScreen';
 import CalendarScreen from './screens/CalendarScreen';
+import { useLocalStorage } from './hooks/useLocalStorage';
 import MenuManagementScreen from './screens/MenuManagementScreen';
 import MenuDetailScreen from './screens/MenuDetailScreen';
 import { getDayOfWeek } from './utils/dateUtils';
@@ -35,25 +36,21 @@ function App(): JSX.Element {
   // 天気情報
   const [weather, setWeather] = useState<WeatherInfo | null>(null);
 
+  const [savedLocation] = useLocalStorage('training-app-location', '東京');
+
   // 初期化：天気情報を取得
   useEffect(() => {
     const initWeather = async () => {
-      const savedLocation = localStorage.getItem('training-app-location');
       let weatherData = null;
 
-      if (savedLocation) {
-        // 保存された地域の天気を取得
-        if (savedLocation.includes(',')) {
-          // 緯度経度の場合
-          const [lat, lon] = savedLocation.split(',').map(Number);
-          weatherData = await fetchWeatherByCoords(lat, lon);
-        } else {
-          // 地域名の場合
-          weatherData = await fetchWeather(savedLocation);
-        }
+      // 保存された地域の天気を取得
+      if (savedLocation.includes(',')) {
+        // 緯度経度の場合
+        const [lat, lon] = savedLocation.split(',').map(Number);
+        weatherData = await fetchWeatherByCoords(lat, lon);
       } else {
-        // デフォルトで東京の天気を取得
-        weatherData = await fetchWeather('東京');
+        // 地域名の場合
+        weatherData = await fetchWeather(savedLocation);
       }
 
       // API失敗時はランダム天気をフォールバック
@@ -61,7 +58,7 @@ function App(): JSX.Element {
     };
 
     initWeather();
-  }, []);
+  }, [savedLocation]);
 
   /**
    * 今日のメニューを取得
