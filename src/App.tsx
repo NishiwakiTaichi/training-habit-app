@@ -7,7 +7,7 @@ import CalendarScreen from './screens/CalendarScreen';
 import MenuManagementScreen from './screens/MenuManagementScreen';
 import MenuDetailScreen from './screens/MenuDetailScreen';
 import { getDayOfWeek } from './utils/dateUtils';
-import { getRandomWeather } from './utils/weatherUtils';
+import { fetchWeather, fetchWeatherByCoords, getRandomWeather } from './utils/weatherUtils';
 import { initialTrainingMenus } from './data/trainingData';
 import { ScreenType, WeeklyMenus, WeatherInfo, DayOfWeek, TrainingMenu } from './types';
 
@@ -37,7 +37,30 @@ function App(): JSX.Element {
 
   // 初期化：天気情報を取得
   useEffect(() => {
-    setWeather(getRandomWeather());
+    const initWeather = async () => {
+      const savedLocation = localStorage.getItem('training-app-location');
+      let weatherData = null;
+
+      if (savedLocation) {
+        // 保存された地域の天気を取得
+        if (savedLocation.includes(',')) {
+          // 緯度経度の場合
+          const [lat, lon] = savedLocation.split(',').map(Number);
+          weatherData = await fetchWeatherByCoords(lat, lon);
+        } else {
+          // 地域名の場合
+          weatherData = await fetchWeather(savedLocation);
+        }
+      } else {
+        // デフォルトで東京の天気を取得
+        weatherData = await fetchWeather('東京');
+      }
+
+      // API失敗時はランダム天気をフォールバック
+      setWeather(weatherData || getRandomWeather());
+    };
+
+    initWeather();
   }, []);
 
   /**
@@ -238,9 +261,22 @@ function App(): JSX.Element {
   /**
    * 地域変更時（天気情報更新）
    */
-  const handleLocationChange = (location: string): void => {
+  const handleLocationChange = async (location: string): Promise<void> => {
     console.log('Location changed to:', location);
-    setWeather(getRandomWeather());
+
+    let weatherData = null;
+
+    if (location.includes(',')) {
+      // 緯度経度の場合
+      const [lat, lon] = location.split(',').map(Number);
+      weatherData = await fetchWeatherByCoords(lat, lon);
+    } else {
+      // 地域名の場合
+      weatherData = await fetchWeather(location);
+    }
+
+    // API失敗時はランダム天気をフォールバック
+    setWeather(weatherData || getRandomWeather());
   };
 
   // ===== 画面レンダリング =====
