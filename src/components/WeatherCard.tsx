@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 import { MapPin } from 'lucide-react';
 import { WeatherInfo } from '../types';
 
@@ -11,20 +12,10 @@ interface WeatherCardProps {
  * 天気情報を表示するカードコンポーネント
  */
 const WeatherCard: React.FC<WeatherCardProps> = ({ weather, onLocationChange }) => {
-  const [location, setLocation] = useState<string>('');
+  const [location, setLocation] = useLocalStorage('training-app-location', '東京');
   const [isGettingLocation, setIsGettingLocation] = useState<boolean>(false);
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const WeatherIcon = weather.icon;
-
-  // 初回マウント時に保存された地域を読み込む
-  React.useEffect(() => {
-    const savedLocation = localStorage.getItem('training-app-location');
-    if (savedLocation) {
-      setLocation(savedLocation);
-    } else {
-      setLocation('東京');
-    }
-  }, []);
 
   const handleSearch = async (): Promise<void> => {
     if (!location.trim()) {
@@ -33,9 +24,6 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weather, onLocationChange }) 
     }
 
     setIsSearching(true);
-
-    // 地域を保存
-    localStorage.setItem('training-app-location', location);
 
     if (onLocationChange) {
       await onLocationChange(location);
@@ -56,9 +44,6 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weather, onLocationChange }) 
           const { latitude, longitude } = position.coords;
           const locationText = `${latitude.toFixed(4)},${longitude.toFixed(4)}`;
           setLocation(locationText);
-
-          // 現在地を保存
-          localStorage.setItem('training-app-location', locationText);
 
           if (onLocationChange) {
             await onLocationChange(locationText);
