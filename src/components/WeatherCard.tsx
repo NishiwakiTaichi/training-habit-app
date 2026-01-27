@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { MapPin } from 'lucide-react';
 import { WeatherInfo } from '../types';
 
@@ -11,29 +11,37 @@ interface WeatherCardProps {
  * 天気情報を表示するカードコンポーネント
  */
 const WeatherCard: React.FC<WeatherCardProps> = ({ weather, onLocationChange }) => {
-  const [location, setLocation] = useState<string>('東京');
+  const [location, setLocation] = useState<string>('');
   const [isGettingLocation, setIsGettingLocation] = useState<boolean>(false);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
   const WeatherIcon = weather.icon;
 
   // 初回マウント時に保存された地域を読み込む
-  useEffect(() => {
+  React.useEffect(() => {
     const savedLocation = localStorage.getItem('training-app-location');
     if (savedLocation) {
       setLocation(savedLocation);
-      // 保存された地域で天気を取得
-      if (onLocationChange) {
-        onLocationChange(savedLocation);
-      }
+    } else {
+      setLocation('東京');
     }
   }, []);
 
-  const handleSearch = (): void => {
+  const handleSearch = async (): Promise<void> => {
+    if (!location.trim()) {
+      alert('地域名を入力してください');
+      return;
+    }
+
+    setIsSearching(true);
+
     // 地域を保存
     localStorage.setItem('training-app-location', location);
 
     if (onLocationChange) {
-      onLocationChange(location);
+      await onLocationChange(location);
     }
+
+    setIsSearching(false);
   };
 
   /**
@@ -44,19 +52,19 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weather, onLocationChange }) 
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
+        async (position) => {
           const { latitude, longitude } = position.coords;
-          const locationText = `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`;
+          const locationText = `${latitude.toFixed(4)},${longitude.toFixed(4)}`;
           setLocation(locationText);
 
           // 現在地を保存
           localStorage.setItem('training-app-location', locationText);
 
-          setIsGettingLocation(false);
-
           if (onLocationChange) {
-            onLocationChange(locationText);
+            await onLocationChange(locationText);
           }
+
+          setIsGettingLocation(false);
         },
         (error) => {
           console.error('位置情報の取得に失敗しました:', error);
@@ -101,11 +109,12 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weather, onLocationChange }) 
           background: '#E8F5ED',
           color: '#2D5F3F',
           border: 'none',
-          cursor: isGettingLocation ? 'not-allowed' : 'pointer'
+          cursor: isGettingLocation ? 'not-allowed' : 'pointer',
+          opacity: isGettingLocation ? 0.6 : 1
         }}
       >
         <MapPin size={20} />
-        現在地を使う
+        {isGettingLocation ? '取得中...' : '現在地を使う'}
       </button>
 
       {/* 検索フィールド */}
@@ -114,7 +123,13 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weather, onLocationChange }) 
           type="text"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
-          placeholder="地域名（例：名古屋/東京/Shinjuku）"
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              handleSearch();
+            }
+          }}
+          placeholder="地域名（例：名古屋/東京/Tokyo）"
+          disabled={isSearching}
           style={{
             flex: 1,
             padding: '12px 16px',
@@ -126,6 +141,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weather, onLocationChange }) 
         />
         <button
           onClick={handleSearch}
+          disabled={isSearching}
           style={{
             padding: '12px 24px',
             borderRadius: '8px',
@@ -134,11 +150,12 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weather, onLocationChange }) 
             background: '#2D5F3F',
             color: 'white',
             border: 'none',
-            cursor: 'pointer',
-            whiteSpace: 'nowrap'
+            cursor: isSearching ? 'not-allowed' : 'pointer',
+            whiteSpace: 'nowrap',
+            opacity: isSearching ? 0.6 : 1
           }}
         >
-          検索
+          {isSearching ? '検索中...' : '検索'}
         </button>
       </div>
 
