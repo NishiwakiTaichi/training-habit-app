@@ -103,7 +103,11 @@ function App(): JSX.Element {
       // 全メニュー完了
       const today = new Date().toDateString();
       if (!completedDates.includes(today)) {
-        setCompletedDates([...completedDates, today]);
+        const newCompletedDates = [...completedDates, today];
+        setCompletedDates(newCompletedDates);
+
+        // 念のため直接localStorageに保存
+        localStorage.setItem('completed-dates', JSON.stringify(newCompletedDates));
       }
       setCurrentScreen('complete');
     }
@@ -180,10 +184,10 @@ function App(): JSX.Element {
    */
   const handleDeleteMenu = (day: DayOfWeek, index: number): void => {
     if (window.confirm('このメニューを削除しますか？')) {
-      setTrainingMenus(prev => ({
-        ...prev,
-        [day]: prev[day].filter((_, idx) => idx !== index)
-      }));
+      setTrainingMenus({
+        ...trainingMenus,
+        [day]: trainingMenus[day].filter((_, idx) => idx !== index)
+      });
     }
   };
 
@@ -192,28 +196,24 @@ function App(): JSX.Element {
    */
   const handleCopyMenus = (sourceDay: DayOfWeek, targetDays: DayOfWeek[]): void => {
     const sourceMenus = trainingMenus[sourceDay];
-    setTrainingMenus(prev => {
-      const newMenus = { ...prev };
-      targetDays.forEach(targetDay => {
-        newMenus[targetDay] = [...newMenus[targetDay], ...sourceMenus];
-      });
-      return newMenus;
+    const newMenus = { ...trainingMenus };
+    targetDays.forEach(targetDay => {
+      newMenus[targetDay] = [...newMenus[targetDay], ...sourceMenus];
     });
+    setTrainingMenus(newMenus);
   };
 
   /**
    * メニューの並び替え
    */
   const handleReorderMenus = (day: DayOfWeek, sourceIndex: number, destinationIndex: number): void => {
-    setTrainingMenus(prev => {
-      const dayMenus = [...prev[day]];
-      const [removed] = dayMenus.splice(sourceIndex, 1);
-      dayMenus.splice(destinationIndex, 0, removed);
+    const dayMenus = [...trainingMenus[day]];
+    const [removed] = dayMenus.splice(sourceIndex, 1);
+    dayMenus.splice(destinationIndex, 0, removed);
 
-      return {
-        ...prev,
-        [day]: dayMenus
-      };
+    setTrainingMenus({
+      ...trainingMenus,
+      [day]: dayMenus
     });
   };
 
@@ -221,31 +221,24 @@ function App(): JSX.Element {
    * メニュー保存
    */
   const handleSaveMenu = (menu: TrainingMenu, selectedDays: DayOfWeek[]): void => {
+    const newMenus = { ...trainingMenus };
+
     if (editingIndex !== undefined && editingDay) {
       // 編集モード：元の曜日から削除して、新しい曜日に追加
-      setTrainingMenus(prev => {
-        const newMenus = { ...prev };
+      newMenus[editingDay] = newMenus[editingDay].filter((_, idx) => idx !== editingIndex);
 
-        // 元の曜日から削除
-        newMenus[editingDay] = newMenus[editingDay].filter((_, idx) => idx !== editingIndex);
-
-        // 選択された全ての曜日に追加
-        selectedDays.forEach(day => {
-          newMenus[day] = [...newMenus[day], menu];
-        });
-
-        return newMenus;
+      // 選択された全ての曜日に追加
+      selectedDays.forEach(day => {
+        newMenus[day] = [...newMenus[day], menu];
       });
     } else {
       // 新規追加モード：選択された全ての曜日に追加
-      setTrainingMenus(prev => {
-        const newMenus = { ...prev };
-        selectedDays.forEach(day => {
-          newMenus[day] = [...newMenus[day], menu];
-        });
-        return newMenus;
+      selectedDays.forEach(day => {
+        newMenus[day] = [...newMenus[day], menu];
       });
     }
+
+    setTrainingMenus(newMenus);
 
     setShowMenuDetail(false);
     setEditingMenu(undefined);

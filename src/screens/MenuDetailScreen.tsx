@@ -66,6 +66,34 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
     }
   };
 
+  // ドラッグオーバー時の処理
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  // ドロップ時の処理
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const files = e.dataTransfer.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+
+      // 画像ファイルかチェック
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          setImage(event.target?.result as string);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        alert('画像ファイルを選択してください');
+      }
+    }
+  };
+
   // 保存処理
   const handleSave = () => {
     if (!name.trim()) {
@@ -271,12 +299,15 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
               カスタム画像をアップロード
             </label>
             <div
+              onDragOver={handleDragOver}
+              onDrop={handleDrop}
               style={{
                 border: '2px dashed #E8F5ED',
                 borderRadius: '12px',
                 padding: '24px',
                 textAlign: 'center',
-                background: '#F9FCFA'
+                background: '#F9FCFA',
+                transition: 'all 0.3s'
               }}
             >
               <input
