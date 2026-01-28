@@ -4,13 +4,13 @@ import StartScreen from './screens/StartScreen';
 import TrainingScreen from './screens/TrainingScreen';
 import CompleteScreen from './screens/CompleteScreen';
 import CalendarScreen from './screens/CalendarScreen';
-import { useLocalStorage } from './hooks/useLocalStorage';
 import MenuManagementScreen from './screens/MenuManagementScreen';
 import MenuDetailScreen from './screens/MenuDetailScreen';
 import { getDayOfWeek } from './utils/dateUtils';
 import { fetchWeather, fetchWeatherByCoords, getRandomWeather } from './utils/weatherUtils';
 import { initialTrainingMenus } from './data/trainingData';
 import { ScreenType, WeeklyMenus, WeatherInfo, DayOfWeek, TrainingMenu } from './types';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 /**
  * メインアプリケーションコンポーネント
@@ -30,6 +30,18 @@ function App(): JSX.Element {
     'completed-dates',
     []
   );
+
+  // trainingMenusが変更されたら必ずlocalStorageに保存
+  useEffect(() => {
+    localStorage.setItem('training-menus', JSON.stringify(trainingMenus));
+    console.log('Training menus saved:', trainingMenus);
+  }, [trainingMenus]);
+
+  // completedDatesが変更されたら必ずlocalStorageに保存
+  useEffect(() => {
+    localStorage.setItem('completed-dates', JSON.stringify(completedDates));
+    console.log('Completed dates saved:', completedDates);
+  }, [completedDates]);
 
   // カレンダー関連の状態
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -204,20 +216,6 @@ function App(): JSX.Element {
   };
 
   /**
-   * メニューの並び替え
-   */
-  const handleReorderMenus = (day: DayOfWeek, sourceIndex: number, destinationIndex: number): void => {
-    const dayMenus = [...trainingMenus[day]];
-    const [removed] = dayMenus.splice(sourceIndex, 1);
-    dayMenus.splice(destinationIndex, 0, removed);
-
-    setTrainingMenus({
-      ...trainingMenus,
-      [day]: dayMenus
-    });
-  };
-
-  /**
    * メニュー保存
    */
   const handleSaveMenu = (menu: TrainingMenu, selectedDays: DayOfWeek[]): void => {
@@ -254,6 +252,20 @@ function App(): JSX.Element {
     setEditingMenu(undefined);
     setEditingDay(undefined);
     setEditingIndex(undefined);
+  };
+
+  /**
+   * メニューの並び替え
+   */
+  const handleReorderMenus = (day: DayOfWeek, sourceIndex: number, destinationIndex: number): void => {
+    const dayMenus = [...trainingMenus[day]];
+    const [removed] = dayMenus.splice(sourceIndex, 1);
+    dayMenus.splice(destinationIndex, 0, removed);
+
+    setTrainingMenus({
+      ...trainingMenus,
+      [day]: dayMenus
+    });
   };
 
   /**
