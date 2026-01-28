@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 /**
  * ローカルストレージと同期するカスタムフック
@@ -18,14 +18,20 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T)
     }
   });
 
-  // 値が変更されたらローカルストレージに保存
-  useEffect(() => {
+  // カスタムセッター関数
+  const setValue = (value: T) => {
     try {
-      window.localStorage.setItem(key, JSON.stringify(storedValue));
+      // 状態を更新
+      setStoredValue(value);
+
+      // localStorageに保存
+      window.localStorage.setItem(key, JSON.stringify(value));
+
+      console.log(`Saved to localStorage [${key}]:`, value);
     } catch (error) {
       console.error(`Error setting localStorage key "${key}":`, error);
     }
-  }, [key, storedValue]);
+  };
 
-  return [storedValue, setStoredValue];
+  return [storedValue, setValue];
 }
