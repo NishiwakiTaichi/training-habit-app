@@ -22,8 +22,14 @@ function App(): JSX.Element {
 
   // トレーニング関連の状態
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState<number>(0);
-  const [trainingMenus, setTrainingMenus] = useState<WeeklyMenus>(initialTrainingMenus);
-  const [completedDates, setCompletedDates] = useState<Set<string>>(new Set());
+  const [trainingMenus, setTrainingMenus] = useLocalStorage<WeeklyMenus>(
+    'training-menus',
+    initialTrainingMenus
+  );
+  const [completedDates, setCompletedDates] = useLocalStorage<string[]>(
+    'completed-dates',
+    []
+  );
 
   // カレンダー関連の状態
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -96,7 +102,9 @@ function App(): JSX.Element {
     } else {
       // 全メニュー完了
       const today = new Date().toDateString();
-      setCompletedDates(prev => new Set([...prev, today]));
+      if (!completedDates.includes(today)) {
+        setCompletedDates([...completedDates, today]);
+      }
       setCurrentScreen('complete');
     }
   };
@@ -349,7 +357,7 @@ function App(): JSX.Element {
           setCurrentScreen('start');
           setCurrentExerciseIndex(0);
         }}
-        completedDates={completedDates}
+        completedDates={new Set(completedDates)}
         selectedDayMenus={getMenuForDate(selectedDate)}
       />
     );
