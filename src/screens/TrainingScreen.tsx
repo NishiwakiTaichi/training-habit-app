@@ -48,12 +48,21 @@ const TrainingScreen: React.FC<TrainingScreenProps> = ({
             textAlign: 'center'
           }}
         >
+          <div style={{ fontSize: '64px', marginBottom: '24px' }}>📝</div>
           <h2 style={{ fontSize: '28px', fontWeight: 900, color: '#2D5F3F', marginBottom: '16px' }}>
             今日のメニューはありません
           </h2>
-          <Button variant="secondary" onClick={onBack} icon={<ChevronLeft size={24} />}>
-            戻る
-          </Button>
+          <p style={{ fontSize: '16px', color: '#6B7280', marginBottom: '32px' }}>
+            メニューを追加して、トレーニングを始めましょう
+          </p>
+          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
+            <Button variant="primary" onClick={onCalendar} icon={<Calendar size={20} />}>
+              メニューを追加
+            </Button>
+            <Button variant="secondary" onClick={onBack} icon={<ChevronLeft size={20} />}>
+              戻る
+            </Button>
+          </div>
         </div>
       </div>
     );
