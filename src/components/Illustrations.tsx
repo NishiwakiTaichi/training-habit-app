@@ -1,5 +1,3 @@
-import React from 'react';
-
 /**
  * トップ画面用のイラスト
  */

@@ -70,12 +70,10 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weather, onLocationChange }) 
         background: 'white',
         borderRadius: '16px',
         padding: '24px',
-        marginBottom: '24px'
+        marginBottom: '24px',
       }}
     >
-      <h3 style={{ fontWeight: 700, fontSize: '18px', color: '#2D5F3F', marginBottom: '16px' }}>
-        今日の天気
-      </h3>
+      <h3 style={{ fontWeight: 700, fontSize: '18px', color: '#2D5F3F', marginBottom: '16px' }}>今日の天気</h3>
 
       {/* 現在地を使うボタン */}
       <button
@@ -95,7 +93,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weather, onLocationChange }) 
           color: '#2D5F3F',
           border: 'none',
           cursor: isGettingLocation ? 'not-allowed' : 'pointer',
-          opacity: isGettingLocation ? 0.6 : 1
+          opacity: isGettingLocation ? 0.6 : 1,
         }}
       >
         <MapPin size={20} />
@@ -121,7 +119,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weather, onLocationChange }) 
             border: '2px solid #E8F5ED',
             borderRadius: '8px',
             fontSize: '14px',
-            background: '#F9FCFA'
+            background: '#F9FCFA',
           }}
         />
         <button
@@ -137,7 +135,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weather, onLocationChange }) 
             border: 'none',
             cursor: isSearching ? 'not-allowed' : 'pointer',
             whiteSpace: 'nowrap',
-            opacity: isSearching ? 0.6 : 1
+            opacity: isSearching ? 0.6 : 1,
           }}
         >
           {isSearching ? '検索中...' : '検索'}
@@ -151,9 +149,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weather, onLocationChange }) 
           <div style={{ fontWeight: 700, fontSize: '16px', color: '#2D5F3F', marginBottom: '4px' }}>
             天気 ☀️ 風：{weather.condition}
           </div>
-          <div style={{ fontSize: '14px', color: '#5DAD7C' }}>
-            {weather.recommend}
-          </div>
+          <div style={{ fontSize: '14px', color: '#5DAD7C' }}>{weather.recommend}</div>
         </div>
       </div>
     </div>

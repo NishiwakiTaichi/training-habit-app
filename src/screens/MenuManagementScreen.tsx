@@ -25,7 +25,7 @@ const MenuManagementScreen: React.FC<MenuManagementScreenProps> = ({
   onDelete,
   onCopy,
   onReorder,
-  onBack
+  onBack,
 }) => {
   const [selectedDay, setSelectedDay] = useState<DayOfWeek>('月');
   const days: DayOfWeek[] = ['日', '月', '火', '水', '木', '金', '土'];
@@ -52,7 +52,7 @@ const MenuManagementScreen: React.FC<MenuManagementScreenProps> = ({
         alignItems: 'center',
         justifyContent: 'center',
         padding: '32px',
-        background: '#F2F7F3'
+        background: '#F2F7F3',
       }}
     >
       <div style={{ width: '100%', maxWidth: '1000px' }}>
@@ -61,7 +61,7 @@ const MenuManagementScreen: React.FC<MenuManagementScreenProps> = ({
             background: '#FEFEFE',
             borderRadius: '24px',
             boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
-            padding: '48px'
+            padding: '48px',
           }}
         >
           <h2
@@ -70,14 +70,16 @@ const MenuManagementScreen: React.FC<MenuManagementScreenProps> = ({
               fontWeight: 900,
               color: '#2D5F3F',
               marginBottom: '32px',
-              textAlign: 'center'
+              textAlign: 'center',
             }}
           >
             メニュー管理
           </h2>
 
           {/* 曜日選択ボタン */}
-          <div style={{ display: 'flex', gap: '12px', marginBottom: '32px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <div
+            style={{ display: 'flex', gap: '12px', marginBottom: '32px', justifyContent: 'center', flexWrap: 'wrap' }}
+          >
             {days.map((day) => (
               <button
                 key={day}
@@ -91,7 +93,7 @@ const MenuManagementScreen: React.FC<MenuManagementScreenProps> = ({
                   padding: '10px 24px',
                   fontSize: '16px',
                   fontWeight: 700,
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
                 }}
               >
                 {day}
@@ -108,7 +110,7 @@ const MenuManagementScreen: React.FC<MenuManagementScreenProps> = ({
               width: '100%',
               marginBottom: '16px',
               padding: '16px 32px',
-              fontSize: '18px'
+              fontSize: '18px',
             }}
           >
             トレーニングメニューを追加
@@ -123,7 +125,7 @@ const MenuManagementScreen: React.FC<MenuManagementScreenProps> = ({
                 width: '100%',
                 marginBottom: '32px',
                 padding: '16px 32px',
-                fontSize: '18px'
+                fontSize: '18px',
               }}
             >
               メニューセットを他の曜日に複製
@@ -143,7 +145,7 @@ const MenuManagementScreen: React.FC<MenuManagementScreenProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                zIndex: 1000
+                zIndex: 1000,
               }}
               onClick={() => setShowCopyDialog(false)}
             >
@@ -153,42 +155,60 @@ const MenuManagementScreen: React.FC<MenuManagementScreenProps> = ({
                   borderRadius: '24px',
                   padding: '48px',
                   maxWidth: '500px',
-                  width: '90%'
+                  width: '90%',
                 }}
                 onClick={(e) => e.stopPropagation()}
               >
-                <h3 style={{ fontSize: '24px', fontWeight: 900, color: '#2D5F3F', marginBottom: '24px', textAlign: 'center' }}>
+                <h3
+                  style={{
+                    fontSize: '24px',
+                    fontWeight: 900,
+                    color: '#2D5F3F',
+                    marginBottom: '24px',
+                    textAlign: 'center',
+                  }}
+                >
                   複製先の曜日を選択
                 </h3>
 
-                <div style={{ display: 'flex', gap: '12px', marginBottom: '32px', flexWrap: 'wrap', justifyContent: 'center' }}>
-                  {days.filter(d => d !== selectedDay).map((d) => {
-                    const isSelected = copyTargetDays.includes(d);
-                    return (
-                      <button
-                        key={d}
-                        onClick={() => {
-                          if (isSelected) {
-                            setCopyTargetDays(copyTargetDays.filter(day => day !== d));
-                          } else {
-                            setCopyTargetDays([...copyTargetDays, d]);
-                          }
-                        }}
-                        style={{
-                          padding: '10px 24px',
-                          borderRadius: '14px',
-                          background: isSelected ? '#6FBF8E' : 'white',
-                          border: `2px solid ${isSelected ? '#6FBF8E' : '#E8F5ED'}`,
-                          color: isSelected ? 'white' : '#6FBF8E',
-                          fontSize: '16px',
-                          fontWeight: 700,
-                          cursor: 'pointer'
-                        }}
-                      >
-                        {d}
-                      </button>
-                    );
-                  })}
+                <div
+                  style={{
+                    display: 'flex',
+                    gap: '12px',
+                    marginBottom: '32px',
+                    flexWrap: 'wrap',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {days
+                    .filter((d) => d !== selectedDay)
+                    .map((d) => {
+                      const isSelected = copyTargetDays.includes(d);
+                      return (
+                        <button
+                          key={d}
+                          onClick={() => {
+                            if (isSelected) {
+                              setCopyTargetDays(copyTargetDays.filter((day) => day !== d));
+                            } else {
+                              setCopyTargetDays([...copyTargetDays, d]);
+                            }
+                          }}
+                          style={{
+                            padding: '10px 24px',
+                            borderRadius: '14px',
+                            background: isSelected ? '#6FBF8E' : 'white',
+                            border: `2px solid ${isSelected ? '#6FBF8E' : '#E8F5ED'}`,
+                            color: isSelected ? 'white' : '#6FBF8E',
+                            fontSize: '16px',
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                          }}
+                        >
+                          {d}
+                        </button>
+                      );
+                    })}
                 </div>
 
                 <div style={{ display: 'flex', gap: '12px' }}>
@@ -230,10 +250,7 @@ const MenuManagementScreen: React.FC<MenuManagementScreenProps> = ({
               <DragDropContext onDragEnd={handleDragEnd}>
                 <Droppable droppableId="menu-list">
                   {(provided) => (
-                    <div
-                      {...provided.droppableProps}
-                      ref={provided.innerRef}
-                    >
+                    <div {...provided.droppableProps} ref={provided.innerRef}>
                       {trainingMenus[selectedDay].map((menu, idx) => (
                         <Draggable
                           key={`${selectedDay}-${menu.name}-${idx}`}
@@ -247,7 +264,7 @@ const MenuManagementScreen: React.FC<MenuManagementScreenProps> = ({
                               {...provided.dragHandleProps}
                               style={{
                                 ...provided.draggableProps.style,
-                                opacity: snapshot.isDragging ? 0.8 : 1
+                                opacity: snapshot.isDragging ? 0.8 : 1,
                               }}
                             >
                               <MenuCard
@@ -267,12 +284,14 @@ const MenuManagementScreen: React.FC<MenuManagementScreenProps> = ({
                 </Droppable>
               </DragDropContext>
             ) : (
-              <div style={{
-                textAlign: 'center',
-                padding: '48px',
-                color: '#999',
-                fontSize: '16px'
-              }}>
+              <div
+                style={{
+                  textAlign: 'center',
+                  padding: '48px',
+                  color: '#999',
+                  fontSize: '16px',
+                }}
+              >
                 {selectedDay}曜日のメニューはまだありません
               </div>
             )}

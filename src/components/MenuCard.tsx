@@ -1,5 +1,5 @@
-import React from 'react';
 import { Edit, Trash2, GripVertical } from 'lucide-react';
+import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
 import { TrainingMenu, DayOfWeek } from '../types';
 
 interface MenuCardProps {
@@ -8,20 +8,13 @@ interface MenuCardProps {
   onEdit?: () => void;
   onDelete?: () => void;
   showActions?: boolean;
-  dragHandleProps?: any;
+  dragHandleProps?: DraggableProvidedDragHandleProps | null;
 }
 
 /**
  * トレーニングメニューを表示するカードコンポーネント
  */
-const MenuCard: React.FC<MenuCardProps> = ({
-  menu,
-  day,
-  onEdit,
-  onDelete,
-  showActions = true,
-  dragHandleProps
-}) => {
+const MenuCard: React.FC<MenuCardProps> = ({ menu, day, onEdit, onDelete, showActions = true, dragHandleProps }) => {
   return (
     <div
       style={{
@@ -33,7 +26,7 @@ const MenuCard: React.FC<MenuCardProps> = ({
         marginBottom: '12px',
         background: '#F2F7F3',
         border: '2px solid #E8F5ED',
-        transition: 'all 0.3s ease'
+        transition: 'all 0.3s ease',
       }}
     >
       {showActions && (
@@ -45,7 +38,7 @@ const MenuCard: React.FC<MenuCardProps> = ({
             background: 'transparent',
             border: 'none',
             display: 'flex',
-            alignItems: 'center'
+            alignItems: 'center',
           }}
         >
           <GripVertical size={24} style={{ color: '#9DD6B3' }} />
@@ -62,7 +55,7 @@ const MenuCard: React.FC<MenuCardProps> = ({
             height: '64px',
             objectFit: 'cover',
             borderRadius: '12px',
-            border: '2px solid #E8F5ED'
+            border: '2px solid #E8F5ED',
           }}
         />
       )}
@@ -74,7 +67,7 @@ const MenuCard: React.FC<MenuCardProps> = ({
             fontWeight: 700,
             fontSize: '18px',
             color: '#2D5F3F',
-            marginBottom: '4px'
+            marginBottom: '4px',
           }}
         >
           {menu.name}
@@ -86,7 +79,7 @@ const MenuCard: React.FC<MenuCardProps> = ({
                 padding: '4px 12px',
                 borderRadius: '20px',
                 background: 'white',
-                fontWeight: 500
+                fontWeight: 500,
               }}
             >
               {day}
@@ -97,17 +90,18 @@ const MenuCard: React.FC<MenuCardProps> = ({
               padding: '4px 12px',
               borderRadius: '20px',
               background: 'white',
-              fontWeight: 500
+              fontWeight: 500,
             }}
           >
-            {menu.reps}{menu.unit}
+            {menu.reps}
+            {menu.unit}
           </span>
           <span
             style={{
               padding: '4px 12px',
               borderRadius: '20px',
               background: 'white',
-              fontWeight: 500
+              fontWeight: 500,
             }}
           >
             {menu.sets}セット
@@ -128,7 +122,7 @@ const MenuCard: React.FC<MenuCardProps> = ({
               borderRadius: '8px',
               transition: 'background 0.3s',
               display: 'flex',
-              alignItems: 'center'
+              alignItems: 'center',
             }}
           >
             <Edit size={24} style={{ color: '#6FBF8E' }} />
@@ -144,7 +138,7 @@ const MenuCard: React.FC<MenuCardProps> = ({
               borderRadius: '8px',
               transition: 'background 0.3s',
               display: 'flex',
-              alignItems: 'center'
+              alignItems: 'center',
             }}
           >
             <Trash2 size={24} style={{ color: '#E57373' }} />

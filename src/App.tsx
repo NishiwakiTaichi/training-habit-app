@@ -22,25 +22,23 @@ function App(): JSX.Element {
 
   // トレーニング関連の状態
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState<number>(0);
-  const [trainingMenus, setTrainingMenus] = useLocalStorage<WeeklyMenus>(
-    'training-menus',
-    initialTrainingMenus
-  );
-  const [completedDates, setCompletedDates] = useLocalStorage<string[]>(
-    'completed-dates',
-    []
-  );
+  const [trainingMenus, setTrainingMenus] = useLocalStorage<WeeklyMenus>('training-menus', initialTrainingMenus);
+  const [completedDates, setCompletedDates] = useLocalStorage<string[]>('completed-dates', []);
 
   // trainingMenusが変更されたら必ずlocalStorageに保存
   useEffect(() => {
     localStorage.setItem('training-menus', JSON.stringify(trainingMenus));
-    console.log('Training menus saved:', trainingMenus);
+    if (import.meta.env.DEV) {
+      console.log('Training menus saved:', trainingMenus);
+    }
   }, [trainingMenus]);
 
   // completedDatesが変更されたら必ずlocalStorageに保存
   useEffect(() => {
     localStorage.setItem('completed-dates', JSON.stringify(completedDates));
-    console.log('Completed dates saved:', completedDates);
+    if (import.meta.env.DEV) {
+      console.log('Completed dates saved:', completedDates);
+    }
   }, [completedDates]);
 
   // カレンダー関連の状態
@@ -198,7 +196,7 @@ function App(): JSX.Element {
     if (window.confirm('このメニューを削除しますか？')) {
       setTrainingMenus({
         ...trainingMenus,
-        [day]: trainingMenus[day].filter((_, idx) => idx !== index)
+        [day]: trainingMenus[day].filter((_, idx) => idx !== index),
       });
     }
   };
@@ -209,7 +207,7 @@ function App(): JSX.Element {
   const handleCopyMenus = (sourceDay: DayOfWeek, targetDays: DayOfWeek[]): void => {
     const sourceMenus = trainingMenus[sourceDay];
     const newMenus = { ...trainingMenus };
-    targetDays.forEach(targetDay => {
+    targetDays.forEach((targetDay) => {
       newMenus[targetDay] = [...newMenus[targetDay], ...sourceMenus];
     });
     setTrainingMenus(newMenus);
@@ -226,12 +224,12 @@ function App(): JSX.Element {
       newMenus[editingDay] = newMenus[editingDay].filter((_, idx) => idx !== editingIndex);
 
       // 選択された全ての曜日に追加
-      selectedDays.forEach(day => {
+      selectedDays.forEach((day) => {
         newMenus[day] = [...newMenus[day], menu];
       });
     } else {
       // 新規追加モード：選択された全ての曜日に追加
-      selectedDays.forEach(day => {
+      selectedDays.forEach((day) => {
         newMenus[day] = [...newMenus[day], menu];
       });
     }
@@ -264,7 +262,7 @@ function App(): JSX.Element {
 
     setTrainingMenus({
       ...trainingMenus,
-      [day]: dayMenus
+      [day]: dayMenus,
     });
   };
 
@@ -293,16 +291,16 @@ function App(): JSX.Element {
 
   if (!weather) {
     return (
-      <div style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: '#F2F7F3'
-      }}>
-        <div style={{ fontSize: '24px', fontWeight: 700, color: '#6FBF8E' }}>
-          読み込み中...
-        </div>
+      <div
+        style={{
+          minHeight: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: '#F2F7F3',
+        }}
+      >
+        <div style={{ fontSize: '24px', fontWeight: 700, color: '#6FBF8E' }}>読み込み中...</div>
       </div>
     );
   }
@@ -320,13 +318,7 @@ function App(): JSX.Element {
   }
 
   if (currentScreen === 'start') {
-    return (
-      <StartScreen
-        weather={weather}
-        onStart={handleStart}
-        onLocationChange={handleLocationChange}
-      />
-    );
+    return <StartScreen weather={weather} onStart={handleStart} onLocationChange={handleLocationChange} />;
   }
 
   if (currentScreen === 'training') {
@@ -343,12 +335,7 @@ function App(): JSX.Element {
   }
 
   if (currentScreen === 'complete') {
-    return (
-      <CompleteScreen
-        onBack={() => setCurrentScreen('start')}
-        onCalendar={handleGoToCalendar}
-      />
-    );
+    return <CompleteScreen onBack={() => setCurrentScreen('start')} onCalendar={handleGoToCalendar} />;
   }
 
   if (currentScreen === 'calendar') {

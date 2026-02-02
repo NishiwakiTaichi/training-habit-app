@@ -1,4 +1,3 @@
-import React from 'react';
 import Button from '../components/Button';
 import WeatherCard from '../components/WeatherCard';
 import { WeatherInfo } from '../types';
@@ -21,7 +20,7 @@ const StartScreen: React.FC<StartScreenProps> = ({ weather, onStart, onLocationC
         alignItems: 'center',
         justifyContent: 'center',
         padding: '32px',
-        background: '#F2F7F3'
+        background: '#F2F7F3',
       }}
     >
       <div
@@ -31,7 +30,7 @@ const StartScreen: React.FC<StartScreenProps> = ({ weather, onStart, onLocationC
           background: '#FEFEFE',
           borderRadius: '24px',
           boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
-          overflow: 'hidden'
+          overflow: 'hidden',
         }}
       >
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0 }}>
@@ -43,16 +42,15 @@ const StartScreen: React.FC<StartScreenProps> = ({ weather, onStart, onLocationC
                 fontWeight: 900,
                 color: '#2D5F3F',
                 lineHeight: '1.4',
-                marginBottom: '32px'
+                marginBottom: '32px',
               }}
             >
-              今日のトレーニングを<br />始めましょう！
+              今日のトレーニングを
+              <br />
+              始めましょう！
             </h1>
 
-            <WeatherCard
-              weather={weather}
-              onLocationChange={onLocationChange}
-            />
+            <WeatherCard weather={weather} onLocationChange={onLocationChange} />
 
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Button
@@ -72,7 +70,7 @@ const StartScreen: React.FC<StartScreenProps> = ({ weather, onStart, onLocationC
               alignItems: 'center',
               justifyContent: 'center',
               padding: '48px',
-              background: 'linear-gradient(135deg, #E8F5ED 0%, #F2F7F3 100%)'
+              background: 'linear-gradient(135deg, #E8F5ED 0%, #F2F7F3 100%)',
             }}
           >
             <img

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Check, ChevronLeft, Calendar } from 'lucide-react';
 import Button from '../components/Button';
 
@@ -19,7 +18,7 @@ const CompleteScreen: React.FC<CompleteScreenProps> = ({ onBack, onCalendar }) =
         alignItems: 'center',
         justifyContent: 'center',
         padding: '32px',
-        background: '#F2F7F3'
+        background: '#F2F7F3',
       }}
     >
       <div
@@ -30,7 +29,7 @@ const CompleteScreen: React.FC<CompleteScreenProps> = ({ onBack, onCalendar }) =
           borderRadius: '24px',
           boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
           padding: '64px',
-          textAlign: 'center'
+          textAlign: 'center',
         }}
       >
         {/* チェックマークアイコン */}
@@ -43,7 +42,7 @@ const CompleteScreen: React.FC<CompleteScreenProps> = ({ onBack, onCalendar }) =
               background: '#6FBF8E',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center'
+              justifyContent: 'center',
             }}
           >
             <Check size={64} style={{ color: 'white' }} strokeWidth={4} />
@@ -57,7 +56,7 @@ const CompleteScreen: React.FC<CompleteScreenProps> = ({ onBack, onCalendar }) =
             fontWeight: 900,
             color: '#6FBF8E',
             marginBottom: '24px',
-            textAlign: 'center'
+            textAlign: 'center',
           }}
         >
           Complete!!
@@ -69,7 +68,7 @@ const CompleteScreen: React.FC<CompleteScreenProps> = ({ onBack, onCalendar }) =
             fontWeight: 700,
             color: '#2D5F3F',
             marginBottom: '16px',
-            textAlign: 'center'
+            textAlign: 'center',
           }}
         >
           お疲れ様でした！
@@ -79,7 +78,7 @@ const CompleteScreen: React.FC<CompleteScreenProps> = ({ onBack, onCalendar }) =
             fontSize: '18px',
             color: '#5DAD7C',
             marginBottom: '48px',
-            textAlign: 'center'
+            textAlign: 'center',
           }}
         >
           今日のトレーニングメニューはこれで完了しました！

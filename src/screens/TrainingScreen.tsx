@@ -1,4 +1,3 @@
-import React from 'react';
 import { ChevronLeft, Calendar } from 'lucide-react';
 import Button from '../components/Button';
 import { TrainingMenu } from '../types';
@@ -21,7 +20,7 @@ const TrainingScreen: React.FC<TrainingScreenProps> = ({
   onClear,
   onBack,
   onCalendar,
-  onMenuSelect
+  onMenuSelect,
 }) => {
   const currentMenu = menus[currentIndex];
 
@@ -34,7 +33,7 @@ const TrainingScreen: React.FC<TrainingScreenProps> = ({
           alignItems: 'center',
           justifyContent: 'center',
           padding: '32px',
-          background: '#F2F7F3'
+          background: '#F2F7F3',
         }}
       >
         <div
@@ -45,7 +44,7 @@ const TrainingScreen: React.FC<TrainingScreenProps> = ({
             borderRadius: '24px',
             boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
             padding: '48px',
-            textAlign: 'center'
+            textAlign: 'center',
           }}
         >
           <div style={{ fontSize: '64px', marginBottom: '24px' }}>📝</div>
@@ -76,7 +75,7 @@ const TrainingScreen: React.FC<TrainingScreenProps> = ({
         alignItems: 'center',
         justifyContent: 'center',
         padding: '32px',
-        background: '#F2F7F3'
+        background: '#F2F7F3',
       }}
     >
       <div
@@ -86,7 +85,7 @@ const TrainingScreen: React.FC<TrainingScreenProps> = ({
           background: '#FEFEFE',
           borderRadius: '24px',
           boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
-          padding: '48px'
+          padding: '48px',
         }}
       >
         <h2
@@ -95,7 +94,7 @@ const TrainingScreen: React.FC<TrainingScreenProps> = ({
             fontWeight: 900,
             color: '#2D5F3F',
             marginBottom: '32px',
-            textAlign: 'center'
+            textAlign: 'center',
           }}
         >
           今日のトレーニング
@@ -116,7 +115,7 @@ const TrainingScreen: React.FC<TrainingScreenProps> = ({
                 padding: '10px 24px',
                 fontSize: '16px',
                 fontWeight: 700,
-                transition: 'all 0.3s ease'
+                transition: 'all 0.3s ease',
               }}
             >
               {` ${menu.name} `}
@@ -131,7 +130,7 @@ const TrainingScreen: React.FC<TrainingScreenProps> = ({
             background: 'linear-gradient(135deg, #F2F7F3 0%, white 100%)',
             borderRadius: '24px',
             padding: '48px',
-            marginBottom: '32px'
+            marginBottom: '32px',
           }}
         >
           {/* トレーニング画像 */}
@@ -145,7 +144,7 @@ const TrainingScreen: React.FC<TrainingScreenProps> = ({
                   maxWidth: '400px',
                   height: 'auto',
                   borderRadius: '16px',
-                  border: '3px solid #E8F5ED'
+                  border: '3px solid #E8F5ED',
                 }}
               />
             ) : (
@@ -159,7 +158,7 @@ const TrainingScreen: React.FC<TrainingScreenProps> = ({
               fontWeight: 900,
               color: '#2D5F3F',
               textAlign: 'center',
-              marginBottom: '12px'
+              marginBottom: '12px',
             }}
           >
             {currentMenu.name}
@@ -170,10 +169,11 @@ const TrainingScreen: React.FC<TrainingScreenProps> = ({
               fontWeight: 700,
               color: '#6FBF8E',
               textAlign: 'center',
-              marginBottom: '12px'
+              marginBottom: '12px',
             }}
           >
-            ×{currentMenu.reps}{currentMenu.unit}
+            ×{currentMenu.reps}
+            {currentMenu.unit}
           </p>
           <p style={{ textAlign: 'center', color: '#999', fontSize: '14px' }}>
             {currentIndex + 1}/{menus.length}
@@ -181,7 +181,15 @@ const TrainingScreen: React.FC<TrainingScreenProps> = ({
         </div>
 
         {/* ボタン群 */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '32px', paddingRight: '32px' }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingLeft: '32px',
+            paddingRight: '32px',
+          }}
+        >
           <Button
             variant="secondary"
             onClick={onBack}
@@ -191,11 +199,7 @@ const TrainingScreen: React.FC<TrainingScreenProps> = ({
             戻る
           </Button>
 
-          <Button
-            variant="primary"
-            onClick={onClear}
-            style={{ padding: '12px 40px', fontSize: '18px' }}
-          >
+          <Button variant="primary" onClick={onClear} style={{ padding: '12px 40px', fontSize: '18px' }}>
             Clear !
           </Button>
 

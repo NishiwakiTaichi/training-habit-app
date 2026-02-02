@@ -23,11 +23,11 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T)
     try {
       // 状態を更新
       setStoredValue(value);
-
       // localStorageに保存
       window.localStorage.setItem(key, JSON.stringify(value));
-
-      console.log(`Saved to localStorage [${key}]:`, value);
+      if (import.meta.env.DEV) {
+        console.log(`Saved to localStorage [${key}]:`, value);
+      }
     } catch (error) {
       console.error(`Error setting localStorage key "${key}":`, error);
     }

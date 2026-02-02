@@ -10,14 +10,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 /**
  * 汎用ボタンコンポーネント
  */
-const Button: React.FC<ButtonProps> = ({
-  variant = 'primary',
-  children,
-  icon,
-  className = '',
-  style,
-  ...props
-}) => {
+const Button: React.FC<ButtonProps> = ({ variant = 'primary', children, icon, className = '', style, ...props }) => {
   const baseClasses = variant === 'primary' ? 'btn-primary' : 'btn-secondary';
 
   return (
@@ -28,7 +21,7 @@ const Button: React.FC<ButtonProps> = ({
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: icon ? '8px' : '0'
+        gap: icon ? '8px' : '0',
       }}
       {...props}
     >

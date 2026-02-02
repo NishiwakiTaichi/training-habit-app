@@ -11,7 +11,7 @@ export const initialTrainingMenus: WeeklyMenus = {
       reps: 30,
       sets: 3,
       unit: '秒',
-      image: '/images/hamstring-stretch.png'
+      image: '/images/hamstring-stretch.png',
     },
     {
       name: '体側伸ばし',
@@ -19,8 +19,8 @@ export const initialTrainingMenus: WeeklyMenus = {
       reps: 45,
       sets: 2,
       unit: '秒',
-      image: '/images/seated-trunk-side-bend.png'
-    }
+      image: '/images/seated-trunk-side-bend.png',
+    },
   ],
   火: [
     {
@@ -29,8 +29,8 @@ export const initialTrainingMenus: WeeklyMenus = {
       reps: 10,
       sets: 3,
       unit: '回',
-      image: '/images/push-up.png'
-    }
+      image: '/images/push-up.png',
+    },
   ],
   水: [
     {
@@ -39,8 +39,8 @@ export const initialTrainingMenus: WeeklyMenus = {
       reps: 30,
       sets: 3,
       unit: '秒',
-      image: '/images/plank.png'
-    }
+      image: '/images/plank.png',
+    },
   ],
   木: [
     {
@@ -49,8 +49,8 @@ export const initialTrainingMenus: WeeklyMenus = {
       reps: 15,
       sets: 3,
       unit: '回',
-      image: '/images/squat.png'
-    }
+      image: '/images/squat.png',
+    },
   ],
   金: [
     {
@@ -59,11 +59,11 @@ export const initialTrainingMenus: WeeklyMenus = {
       reps: 15,
       sets: 3,
       unit: '回',
-      image: '/images/lunge.png'
-    }
+      image: '/images/lunge.png',
+    },
   ],
   土: [],
-  日: []
+  日: [],
 };
 
 /**
@@ -77,7 +77,7 @@ export const menuTemplates: TrainingMenu[] = [
     sets: 3,
     unit: '秒',
     category: 'ストレッチ',
-    image: '/images/achilles-tendon-stretch.png'
+    image: '/images/achilles-tendon-stretch.png',
   },
   {
     name: 'バードドッグ',
@@ -86,7 +86,7 @@ export const menuTemplates: TrainingMenu[] = [
     sets: 3,
     unit: '回',
     category: '体幹',
-    image: '/images/bird-dog.png'
+    image: '/images/bird-dog.png',
   },
   {
     name: 'カーフレイズ',
@@ -95,7 +95,7 @@ export const menuTemplates: TrainingMenu[] = [
     sets: 3,
     unit: '回',
     category: '下半身',
-    image: '/images/calf-raise.png'
+    image: '/images/calf-raise.png',
   },
   {
     name: 'キャットカウ',
@@ -104,7 +104,7 @@ export const menuTemplates: TrainingMenu[] = [
     sets: 2,
     unit: '回',
     category: 'ストレッチ',
-    image: '/images/cat-cow.png'
+    image: '/images/cat-cow.png',
   },
   {
     name: 'サイクリング',
@@ -113,7 +113,7 @@ export const menuTemplates: TrainingMenu[] = [
     sets: 1,
     unit: '分',
     category: '有酸素',
-    image: '/images/cycling.png'
+    image: '/images/cycling.png',
   },
   {
     name: 'エルゴメーター',
@@ -122,7 +122,7 @@ export const menuTemplates: TrainingMenu[] = [
     sets: 1,
     unit: '分',
     category: '有酸素',
-    image: '/images/ergometer.png'
+    image: '/images/ergometer.png',
   },
   {
     name: 'お尻ストレッチ',
@@ -131,7 +131,7 @@ export const menuTemplates: TrainingMenu[] = [
     sets: 3,
     unit: '秒',
     category: 'ストレッチ',
-    image: '/images/glute-stretch.png'
+    image: '/images/glute-stretch.png',
   },
   {
     name: 'ハムストリングストレッチ',
@@ -140,7 +140,7 @@ export const menuTemplates: TrainingMenu[] = [
     sets: 3,
     unit: '秒',
     category: 'ストレッチ',
-    image: '/images/hamstring-stretch.png'
+    image: '/images/hamstring-stretch.png',
   },
   {
     name: '膝抱えストレッチ',
@@ -149,7 +149,7 @@ export const menuTemplates: TrainingMenu[] = [
     sets: 3,
     unit: '秒',
     category: 'ストレッチ',
-    image: '/images/knee-hug-stretch.png'
+    image: '/images/knee-hug-stretch.png',
   },
   {
     name: 'ランジ',
@@ -158,7 +158,7 @@ export const menuTemplates: TrainingMenu[] = [
     sets: 3,
     unit: '回',
     category: '下半身',
-    image: '/images/lunge.png'
+    image: '/images/lunge.png',
   },
   {
     name: '胸ストレッチ',
@@ -167,7 +167,7 @@ export const menuTemplates: TrainingMenu[] = [
     sets: 3,
     unit: '秒',
     category: 'ストレッチ',
-    image: '/images/pec-stretch.png'
+    image: '/images/pec-stretch.png',
   },
   {
     name: 'プランク',
@@ -176,7 +176,7 @@ export const menuTemplates: TrainingMenu[] = [
     sets: 3,
     unit: '秒',
     category: '体幹',
-    image: '/images/plank.png'
+    image: '/images/plank.png',
   },
   {
     name: '腕立て伏せ',
@@ -185,7 +185,7 @@ export const menuTemplates: TrainingMenu[] = [
     sets: 3,
     unit: '回',
     category: '筋トレ',
-    image: '/images/push-up.png'
+    image: '/images/push-up.png',
   },
   {
     name: 'ランニング',
@@ -194,7 +194,7 @@ export const menuTemplates: TrainingMenu[] = [
     sets: 1,
     unit: '分',
     category: '有酸素',
-    image: '/images/running.png'
+    image: '/images/running.png',
   },
   {
     name: '座位お尻ストレッチ',
@@ -203,7 +203,7 @@ export const menuTemplates: TrainingMenu[] = [
     sets: 3,
     unit: '秒',
     category: 'ストレッチ',
-    image: '/images/seated-glute-stretch.png'
+    image: '/images/seated-glute-stretch.png',
   },
   {
     name: 'シーテッドロウ',
@@ -212,7 +212,7 @@ export const menuTemplates: TrainingMenu[] = [
     sets: 3,
     unit: '回',
     category: '背中',
-    image: '/images/seated-row.png'
+    image: '/images/seated-row.png',
   },
   {
     name: '体側伸ばし',
@@ -221,7 +221,7 @@ export const menuTemplates: TrainingMenu[] = [
     sets: 3,
     unit: '秒',
     category: 'ストレッチ',
-    image: '/images/seated-trunk-side-bend.png'
+    image: '/images/seated-trunk-side-bend.png',
   },
   {
     name: '縄跳び',
@@ -230,7 +230,7 @@ export const menuTemplates: TrainingMenu[] = [
     sets: 3,
     unit: '回',
     category: '有酸素',
-    image: '/images/skipping-rope.png'
+    image: '/images/skipping-rope.png',
   },
   {
     name: 'スクワット',
@@ -239,7 +239,7 @@ export const menuTemplates: TrainingMenu[] = [
     sets: 3,
     unit: '回',
     category: '下半身',
-    image: '/images/squat.png'
+    image: '/images/squat.png',
   },
   {
     name: '脊柱ツイスト',
@@ -248,7 +248,7 @@ export const menuTemplates: TrainingMenu[] = [
     sets: 3,
     unit: '回',
     category: 'ストレッチ',
-    image: '/images/supine-spinal-twist.png'
+    image: '/images/supine-spinal-twist.png',
   },
   {
     name: 'トランクカール',
@@ -257,7 +257,7 @@ export const menuTemplates: TrainingMenu[] = [
     sets: 3,
     unit: '回',
     category: '体幹',
-    image: '/images/trunk-curl.png'
+    image: '/images/trunk-curl.png',
   },
   {
     name: 'ウォーキング',
@@ -266,6 +266,6 @@ export const menuTemplates: TrainingMenu[] = [
     sets: 1,
     unit: '分',
     category: '有酸素',
-    image: '/images/walking.png'
-  }
+    image: '/images/walking.png',
+  },
 ];

@@ -13,12 +13,7 @@ interface MenuDetailScreenProps {
 /**
  * メニュー詳細画面
  */
-const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
-  menu,
-  selectedDay,
-  onSave,
-  onBack
-}) => {
+const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({ menu, selectedDay, onSave, onBack }) => {
   const [name, setName] = useState<string>('');
   const [reps, setReps] = useState<number | ''>('');
   const [sets, setSets] = useState<number | ''>('');
@@ -113,7 +108,7 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
       sets: sets || 0,
       unit,
       image,
-      category: 'カスタム'
+      category: 'カスタム',
     };
 
     // 選択された全ての曜日を配列として渡す
@@ -126,7 +121,7 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
         minHeight: '100vh',
         padding: '32px',
         background: '#F2F7F3',
-        overflowY: 'auto'
+        overflowY: 'auto',
       }}
     >
       <div style={{ width: '100%', maxWidth: '900px', margin: '0 auto' }}>
@@ -135,7 +130,7 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
             background: '#FEFEFE',
             borderRadius: '24px',
             boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
-            padding: '48px'
+            padding: '48px',
           }}
         >
           {/* ヘッダー */}
@@ -146,7 +141,7 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
                 fontWeight: 900,
                 color: '#2D5F3F',
                 flex: 1,
-                textAlign: 'center'
+                textAlign: 'center',
               }}
             >
               メニュー詳細
@@ -165,7 +160,7 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
                 color: '#6FBF8E',
                 fontSize: '16px',
                 fontWeight: 700,
-                cursor: 'pointer'
+                cursor: 'pointer',
               }}
             >
               戻る
@@ -180,7 +175,7 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
                 color: 'white',
                 fontSize: '16px',
                 fontWeight: 700,
-                cursor: 'pointer'
+                cursor: 'pointer',
               }}
             >
               保存
@@ -202,7 +197,7 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
                 padding: '12px 16px',
                 border: '2px solid #E8F5ED',
                 borderRadius: '12px',
-                fontSize: '16px'
+                fontSize: '16px',
               }}
             />
           </div>
@@ -222,7 +217,7 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
                     width: '100%',
                     height: 'auto',
                     borderRadius: '16px',
-                    border: '3px solid #E8F5ED'
+                    border: '3px solid #E8F5ED',
                   }}
                 />
                 <button
@@ -235,7 +230,7 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
                     border: 'none',
                     borderRadius: '8px',
                     cursor: 'pointer',
-                    fontSize: '14px'
+                    fontSize: '14px',
                   }}
                 >
                   画像をクリア
@@ -249,16 +244,18 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
             <label style={{ display: 'block', fontWeight: 700, color: '#2D5F3F', marginBottom: '12px' }}>
               テンプレートから選択
             </label>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))',
-              gap: '12px',
-              maxHeight: '400px',
-              overflowY: 'auto',
-              padding: '12px',
-              border: '2px solid #E8F5ED',
-              borderRadius: '12px'
-            }}>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))',
+                gap: '12px',
+                maxHeight: '400px',
+                overflowY: 'auto',
+                padding: '12px',
+                border: '2px solid #E8F5ED',
+                borderRadius: '12px',
+              }}
+            >
               {menuTemplates.map((template, idx) => (
                 <button
                   key={idx}
@@ -269,7 +266,7 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
                     borderRadius: '12px',
                     background: 'white',
                     cursor: 'pointer',
-                    transition: 'all 0.3s'
+                    transition: 'all 0.3s',
                   }}
                 >
                   {template.image && (
@@ -281,13 +278,11 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
                         height: '80px',
                         objectFit: 'cover',
                         borderRadius: '8px',
-                        marginBottom: '4px'
+                        marginBottom: '4px',
                       }}
                     />
                   )}
-                  <div style={{ fontSize: '12px', fontWeight: 600, color: '#2D5F3F' }}>
-                    {template.name}
-                  </div>
+                  <div style={{ fontSize: '12px', fontWeight: 600, color: '#2D5F3F' }}>{template.name}</div>
                 </button>
               ))}
             </div>
@@ -307,7 +302,7 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
                 padding: '24px',
                 textAlign: 'center',
                 background: '#F9FCFA',
-                transition: 'all 0.3s'
+                transition: 'all 0.3s',
               }}
             >
               <input
@@ -328,15 +323,13 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
                   color: 'white',
                   borderRadius: '8px',
                   cursor: 'pointer',
-                  fontWeight: 600
+                  fontWeight: 600,
                 }}
               >
                 <Upload size={20} />
                 ファイルを選択
               </label>
-              <p style={{ marginTop: '12px', fontSize: '14px', color: '#999' }}>
-                または画像をここにドラッグ&ドロップ
-              </p>
+              <p style={{ marginTop: '12px', fontSize: '14px', color: '#999' }}>または画像をここにドラッグ&ドロップ</p>
             </div>
           </div>
 
@@ -353,7 +346,7 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
                     key={d}
                     onClick={() => {
                       if (isSelected) {
-                        setDays(days.filter(day => day !== d));
+                        setDays(days.filter((day) => day !== d));
                       } else {
                         setDays([...days, d as DayOfWeek]);
                       }
@@ -366,7 +359,7 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
                       color: isSelected ? 'white' : '#6FBF8E',
                       fontSize: '14px',
                       fontWeight: 700,
-                      cursor: 'pointer'
+                      cursor: 'pointer',
                     }}
                   >
                     {d}
@@ -379,9 +372,7 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
           {/* 回数・セット数・単位 */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px', marginBottom: '24px' }}>
             <div>
-              <label style={{ display: 'block', fontWeight: 700, color: '#2D5F3F', marginBottom: '8px' }}>
-                回数
-              </label>
+              <label style={{ display: 'block', fontWeight: 700, color: '#2D5F3F', marginBottom: '8px' }}>回数</label>
               <input
                 type="number"
                 value={reps}
@@ -392,14 +383,12 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
                   padding: '12px 16px',
                   border: '2px solid #E8F5ED',
                   borderRadius: '12px',
-                  fontSize: '16px'
+                  fontSize: '16px',
                 }}
               />
             </div>
             <div>
-              <label style={{ display: 'block', fontWeight: 700, color: '#2D5F3F', marginBottom: '8px' }}>
-                単位
-              </label>
+              <label style={{ display: 'block', fontWeight: 700, color: '#2D5F3F', marginBottom: '8px' }}>単位</label>
               <select
                 value={unit}
                 onChange={(e) => setUnit(e.target.value as '秒' | '回' | '分')}
@@ -408,7 +397,7 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
                   padding: '12px 16px',
                   border: '2px solid #E8F5ED',
                   borderRadius: '12px',
-                  fontSize: '16px'
+                  fontSize: '16px',
                 }}
               >
                 <option value="回">回</option>
@@ -430,7 +419,7 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
                   padding: '12px 16px',
                   border: '2px solid #E8F5ED',
                   borderRadius: '12px',
-                  fontSize: '16px'
+                  fontSize: '16px',
                 }}
               />
             </div>
@@ -438,9 +427,7 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
 
           {/* メモ */}
           <div style={{ marginBottom: '32px' }}>
-            <label style={{ display: 'block', fontWeight: 700, color: '#2D5F3F', marginBottom: '8px' }}>
-              メモ
-            </label>
+            <label style={{ display: 'block', fontWeight: 700, color: '#2D5F3F', marginBottom: '8px' }}>メモ</label>
             <textarea
               value={memo}
               onChange={(e) => setMemo(e.target.value)}
@@ -452,7 +439,7 @@ const MenuDetailScreen: React.FC<MenuDetailScreenProps> = ({
                 border: '2px solid #E8F5ED',
                 borderRadius: '12px',
                 fontSize: '16px',
-                resize: 'vertical'
+                resize: 'vertical',
               }}
             />
           </div>

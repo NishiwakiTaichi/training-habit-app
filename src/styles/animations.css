@@ -5,7 +5,6 @@
 }
 
 @keyframes float {
-
   0%,
   100% {
     transform: translateY(0px);
@@ -54,7 +53,7 @@
 
 /* ボタンスタイル */
 .btn-primary {
-  background: #6FBF8E;
+  background: #6fbf8e;
   color: white;
   border: none;
   padding: 18px 48px;
@@ -67,15 +66,15 @@
 }
 
 .btn-primary:hover {
-  background: #5DAD7C;
+  background: #5dad7c;
   transform: translateY(-2px);
   box-shadow: 0 6px 24px rgba(111, 191, 142, 0.4);
 }
 
 .btn-secondary {
   background: white;
-  color: #6FBF8E;
-  border: 2px solid #6FBF8E;
+  color: #6fbf8e;
+  border: 2px solid #6fbf8e;
   padding: 16px 32px;
   font-size: 18px;
   font-weight: 700;
@@ -85,7 +84,7 @@
 }
 
 .btn-secondary:hover {
-  background: #F2F7F3;
+  background: #f2f7f3;
   box-shadow: 0 4px 16px rgba(111, 191, 142, 0.2);
 }
 
@@ -95,12 +94,12 @@
   border-radius: 20px;
   padding: 24px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
-  border: 2px solid #E8F5ED;
+  border: 2px solid #e8f5ed;
 }
 
 .menu-card {
-  background: #F2F7F3;
-  border: 2px solid #E8F5ED;
+  background: #f2f7f3;
+  border: 2px solid #e8f5ed;
   border-radius: 20px;
   padding: 24px;
   transition: all 0.3s ease;
@@ -120,7 +119,7 @@
   position: absolute;
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #6FBF8E 0%, #9DD6B3 100%);
+  background: linear-gradient(135deg, #6fbf8e 0%, #9dd6b3 100%);
   border-radius: 0 100% 100% 0;
   transform: rotate(45deg);
   opacity: 0.3;

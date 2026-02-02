@@ -36,12 +36,7 @@ export interface WeatherInfo {
 /**
  * 画面の種類
  */
-export type ScreenType =
-  | 'start'
-  | 'training'
-  | 'complete'
-  | 'calendar'
-  | 'menuManagement';
+export type ScreenType = 'start' | 'training' | 'complete' | 'calendar' | 'menuManagement';
 
 /**
  * ボタンのバリアント

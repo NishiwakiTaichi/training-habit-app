@@ -1,4 +1,3 @@
-import React from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Button from '../components/Button';
 import { generateCalendarDays, isSameDay, isToday } from '../utils/dateUtils';
@@ -24,7 +23,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({
   onEdit,
   onBack,
   completedDates,
-  selectedDayMenus
+  selectedDayMenus,
 }) => {
   const calendarDays = generateCalendarDays(selectedDate);
 
@@ -39,9 +38,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({
   };
 
   const isDateCompleted = (date: Date): boolean => {
-    return Array.from(completedDates).some(completedDate =>
-      isSameDay(new Date(completedDate), date)
-    );
+    return Array.from(completedDates).some((completedDate) => isSameDay(new Date(completedDate), date));
   };
 
   return (
@@ -52,7 +49,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({
         alignItems: 'center',
         justifyContent: 'center',
         padding: '32px',
-        background: '#F2F7F3'
+        background: '#F2F7F3',
       }}
     >
       <div style={{ width: '100%', maxWidth: '1400px' }}>
@@ -63,11 +60,13 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({
               background: '#FEFEFE',
               borderRadius: '24px',
               boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
-              padding: '48px'
+              padding: '48px',
             }}
           >
             {/* 月の表示とナビゲーション */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px' }}>
+            <div
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px' }}
+            >
               <button
                 onClick={handlePreviousMonth}
                 style={{
@@ -77,7 +76,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({
                   border: 'none',
                   color: '#6FBF8E',
                   cursor: 'pointer',
-                  transition: 'background 0.3s'
+                  transition: 'background 0.3s',
                 }}
               >
                 <ChevronLeft size={28} />
@@ -96,7 +95,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({
                   border: 'none',
                   color: '#6FBF8E',
                   cursor: 'pointer',
-                  transition: 'background 0.3s'
+                  transition: 'background 0.3s',
                 }}
               >
                 <ChevronRight size={28} />
@@ -106,7 +105,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({
             {/* カレンダーグリッド */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '12px' }}>
               {/* 曜日ヘッダー */}
-              {['日', '月', '火', '水', '木', '金', '土'].map(day => (
+              {['日', '月', '火', '水', '木', '金', '土'].map((day) => (
                 <div
                   key={day}
                   style={{
@@ -114,7 +113,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({
                     fontWeight: 700,
                     fontSize: '16px',
                     padding: '12px',
-                    color: '#5DAD7C'
+                    color: '#5DAD7C',
                   }}
                 >
                   {day}
@@ -146,7 +145,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({
                       border: isTodayDate ? '4px solid #6FBF8E' : 'none',
                       color: isCompleted ? 'white' : '#2D5F3F',
                       cursor: 'pointer',
-                      transition: 'all 0.3s'
+                      transition: 'all 0.3s',
                     }}
                   >
                     {day}
@@ -168,7 +167,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({
                     height: '24px',
                     borderRadius: '8px',
                     border: '3px solid #E8F5ED',
-                    background: '#F9FCFA'
+                    background: '#F9FCFA',
                   }}
                 ></div>
                 <span style={{ fontWeight: 500, color: '#2D5F3F' }}>未達成</span>
@@ -184,7 +183,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({
               boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
               padding: '48px',
               display: 'flex',
-              flexDirection: 'column'
+              flexDirection: 'column',
             }}
           >
             <h3
@@ -192,7 +191,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({
                 fontSize: '24px',
                 fontWeight: 900,
                 color: '#2D5F3F',
-                marginBottom: '24px'
+                marginBottom: '24px',
               }}
             >
               {selectedDate.getMonth() + 1}月{selectedDate.getDate()}日のメニュー
@@ -208,7 +207,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({
                       style={{
                         padding: '16px',
                         borderRadius: '16px',
-                        background: '#F2F7F3'
+                        background: '#F2F7F3',
                       }}
                     >
                       <div
@@ -216,7 +215,7 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({
                           fontWeight: 700,
                           fontSize: '18px',
                           color: '#2D5F3F',
-                          marginBottom: '4px'
+                          marginBottom: '4px',
                         }}
                       >
                         {menu.name}
@@ -224,18 +223,17 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({
                       <div
                         style={{
                           fontSize: '14px',
-                          color: '#6FBF8E'
+                          color: '#6FBF8E',
                         }}
                       >
-                        {menu.reps}{menu.unit} × {menu.sets}セット
+                        {menu.reps}
+                        {menu.unit} × {menu.sets}セット
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div style={{ textAlign: 'center', padding: '32px', color: '#999' }}>
-                  この日はメニューがありません
-                </div>
+                <div style={{ textAlign: 'center', padding: '32px', color: '#999' }}>この日はメニューがありません</div>
               )}
             </div>
 
