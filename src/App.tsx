@@ -270,7 +270,7 @@ function App(): JSX.Element {
    * 地域変更時（天気情報更新）
    */
   const handleLocationChange = async (location: string): Promise<void> => {
-    console.log('Location changed to:', location);
+    if (import.meta.env.DEV) console.log('Location changed to:', location);
 
     let weatherData = null;
 
